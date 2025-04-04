@@ -388,3 +388,35 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+.messages {
+  position: fixed;
+  top: 20px;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.messages.show {
+  opacity: 1;
+}
+
+.alert {
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 5px auto;
+  width: fit-content;
+  max-width: 90%;
+  font-weight: bold;
+  color: white;
+  direction: rtl;
+}
+
+/* رنگ‌ها مثل قبل */
+.alert-success { background-color: #4CAF50; }
+.alert-error   { background-color: #f44336; }
+.alert-warning { background-color: #ff9800; }
+.alert-info    { background-color: #2196F3; }
+
