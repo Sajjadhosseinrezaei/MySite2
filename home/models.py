@@ -27,7 +27,7 @@ class Project(models.Model):
 
 class Skill(models.Model):
     name = models.CharField(max_length=80)
-    fa_icon = models.CharField(max_length=80)
+    fa_icon = models.CharField()
     skill_level = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
