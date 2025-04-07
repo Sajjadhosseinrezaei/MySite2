@@ -179,7 +179,3 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
-
-from django.core.files.storage import default_storage
-
-print(default_storage.__class__.__name__)
