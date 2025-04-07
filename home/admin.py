@@ -14,7 +14,7 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('image','name', 'description', 'created', 'updated')
+    list_display = ('name','image', 'description', 'created', 'updated')
     search_fields = ('name',)
     list_filter = ('created', 'updated')
     ordering = ('-created',)
