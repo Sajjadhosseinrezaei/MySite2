@@ -14,7 +14,7 @@ class Project(models.Model):
     name = models.CharField(max_length=80)
     technologies = models.ManyToManyField(Technology,
                                            blank=True,
-                                             related_name='technologies')
+                                             related_name='projects')
     description = models.TextField()
     github = models.URLField(blank=True, null=True)
     link = models.URLField(blank=True, null=True)
