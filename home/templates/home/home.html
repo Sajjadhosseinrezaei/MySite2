@@ -81,7 +81,7 @@
                 {% for project in projects %}
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="{{project.image.url}}" alt="پروژه {{project.name}}">
+                        <img src="{% if ptoject.image %}{{project.image.url}}{% endif %}" alt="پروژه {{project.name}}">
                     </div>
                     <div class="project-content">
                         <h3>{{project.name}}</h3>
