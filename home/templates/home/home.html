@@ -81,7 +81,7 @@
                 {% for project in projects %}
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="{% if ptoject.image %}{{project.image.url}}{% endif %}" alt="پروژه {{project.name}}">
+                        <img src="{% if project.image %}{{project.image.url}}{% endif %}" alt="پروژه {{project.name}}">
                     </div>
                     <div class="project-content">
                         <h3>{{project.name}}</h3>
@@ -100,8 +100,30 @@
                 {% empty %}
                 <p>هیچ پروژه‌ای برای نمایش وجود ندارد.</p>
                 {% endfor %}
+            </div>
+    
+            <!-- اینجا صفحه‌بندی رو گذاشتیم -->
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">اول</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">آخر</a>
+                    {% endif %}
+                </span>
+            </div>
+            
         </div>
     </section>
+    
 
     <section id="contact" class="section">
         <div class="container">
@@ -139,6 +161,8 @@
                 </form>
             </div>
         </div>
+        
+        
     </section>
 
     <footer>
