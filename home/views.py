@@ -4,21 +4,27 @@ from .models import Project, Skill
 from .forms import SendMailForm
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.views.generic import ListView
 
 # Create your views here.
 
 
-class ProjectAndSkillListView(View):
+class ProjectAndSkillListView(ListView):
+    model = Project
     form_class = SendMailForm
     template_name = 'home/home.html'
+    context_object_name = 'projects'
+    paginate_by = 10
 
-    def get(self, request):
-        context = {
-            'projects': Project.objects.all(),
-            'skills': Skill.objects.all(),
-            'form': self.form_class(),
-        }
-        return render(request, self.template_name, context)
+    def get_queryset(self):
+        return Project.objects.all().order_by('-created')
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['skills'] = Skill.objects.all()
+        context['form'] = self.form_class()
+        return context
     
     def post(self, request):
         form = self.form_class(request.POST)
@@ -36,13 +42,8 @@ class ProjectAndSkillListView(View):
             return redirect('home:home')
         else:
             messages.error(request, 'خطا در ارسال پیام. لطفا دوباره تلاش کنید.')
-        context = {
-            'projects': Project.objects.all(),
-            'skills': Skill.objects.all(),
-            'form': form,
-        }
-
-            
+        context = self.get_context_data()
+        context['form'] = form    
         return render(request, self.template_name, context)
 
     
