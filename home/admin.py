@@ -21,7 +21,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
-    list_display = ('name', 'fa_icon', 'skill_level', 'created', 'updated')
+    list_display = ('name', 'icon', 'skill_level', 'created', 'updated')
     search_fields = ('name',)
     list_filter = ('created', 'updated')
     ordering = ('-created',)
