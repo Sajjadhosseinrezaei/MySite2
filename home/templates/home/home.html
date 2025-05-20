@@ -59,7 +59,7 @@
     <section id="about" class="section">
       <div class="container">
         <h2 class="section-title">درباره من</h2>
-        <p>"سلام! من یه برنامه‌نویس مشتاقم که با پایتون، جنگو و ساخت ربات‌های تلگرام کار می‌کنم. تجربه حرفه‌ای زیادی ندارم، ولی علاقه‌ام به یادگیری و پشتکارم باعث شده هر روز مهارت‌هام رو بهتر کنم. توی پروژه‌های شخصیم روی کدنویسی تمیز و راه‌حل‌های کاربردی تمرکز دارم و آماده‌ام با انگیزه زیاد توی یه تیم حرفه‌ای کار کنم و چیزای جدید یاد بگیرم."</p>
+        <p>"سلام! من یه برنامه‌نویس مشتاقم که با پایتون، جنگو کار می‌کنم. تجربه حرفه‌ای زیادی ندارم، ولی علاقه‌ام به یادگیری و پشتکارم باعث شده هر روز مهارت‌هام رو بهتر کنم. توی پروژه‌های شخصیم روی کدنویسی تمیز و راه‌حل‌های کاربردی تمرکز دارم و آماده‌ام با انگیزه زیاد توی یه تیم حرفه‌ای کار کنم و چیزای جدید یاد بگیرم."</p>
       </div>
     </section>
 
@@ -74,7 +74,7 @@
                   </div>
                   <h3>{{ skill.name}}</h3>
                   <div class="skill-level">
-                      <div class="skill-bar" style="width: 70%;"></div>
+                      <div class="skill-bar" style="width: {{skill.skill_level}}%;"></div>
                   </div>
               </div>
               {% empty %}
@@ -84,52 +84,57 @@
       </div>
   </section>
 
-    <section id="projects" class="section">
-      <div class="container">
-        <h2 class="section-title">پروژه‌های من</h2>
-        <div class="projects-container">
-          {% for project in projects %}
-            <div class="project-card">
-              <div class="project-image">
-                <img src="{% if project.image %}{{ project.image.url }}{% endif %}" alt="پروژه {{ project.name }}" />
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title">پروژه‌های من</h2>
+      <div class="projects-container">
+        {% for project in projects %}
+          <div class="project-card">
+            <div class="project-image">
+              <img src="{% if project.image %}{{ project.image.url }}{% endif %}" alt="پروژه {{ project.name }}" />
+            </div>
+            <div class="project-content">
+              <h3>{{ project.name }}</h3>
+              <div class="project-description">
+                <p class="description-text collapsed">{{ project.description }}</p>
+                {% if project.description|length > 150 %}
+                  <button class="read-more-btn">بیشتر...</button>
+                {% endif %}
               </div>
-              <div class="project-content">
-                <h3>{{ project.name }}</h3>
-                <p>{{ project.description }}</p>
-                <div class="project-tech">
-                  {% for tech in project.technologies.all %}
-                    <span>{{ tech.name }}</span>
-                  {% endfor %}
-                </div>
-                <div class="project-links">
-                  <a href="{{ project.link }}" class="btn">مشاهده</a>
-                  <a href="{{ project.github }}" class="btn">کد منبع</a>
-                </div>
+              <div class="project-tech">
+                {% for tech in project.technologies.all %}
+                  <span>{{ tech.name }}</span>
+                {% endfor %}
+              </div>
+              <div class="project-links">
+                <a href="{{ project.link }}" class="btn">مشاهده</a>
+                <a href="{{ project.github }}" class="btn">کد منبع</a>
               </div>
             </div>
-          {% empty %}
-            <p>هیچ پروژه‌ای برای نمایش وجود ندارد.</p>
-          {% endfor %}
-        </div>
-
-        <!-- اینجا صفحه‌بندی رو گذاشتیم -->
-        <div class="pagination">
-          <span class="step-links">
-            {% if page_obj.has_previous %}
-              <a href="?page=1">اول</a>
-              <a href="?page={{ page_obj.previous_page_number }}">قبلی</a>
-            {% endif %}
-
-            <span class="current">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</span>
-
-            {% if page_obj.has_next %}
-              <a href="?page={{ page_obj.next_page_number }}">بعدی</a>
-              <a href="?page={{ page_obj.paginator.num_pages }}">آخر</a>
-            {% endif %}
-          </span>
-        </div>
+          </div>
+        {% empty %}
+          <p>هیچ پروژه‌ای برای نمایش وجود ندارد.</p>
+        {% endfor %}
       </div>
-    </section>
+  
+      <!-- پیجینیشن -->
+      <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1">اول</a>
+            <a href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+          {% endif %}
+  
+          <span class="current">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</span>
+  
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">بعدی</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">آخر</a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </section>
 
     <section id="contact" class="section">
       <div class="container">
@@ -212,6 +217,24 @@
           }, 5000)
         }
       })
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const readMoreButtons = document.querySelectorAll('.read-more-btn');
+        
+        readMoreButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            const descriptionText = this.previousElementSibling;
+            
+            if (descriptionText.classList.contains('collapsed')) {
+              descriptionText.classList.remove('collapsed');
+              this.textContent = 'کمتر...';
+            } else {
+              descriptionText.classList.add('collapsed');
+              this.textContent = 'بیشتر...';
+            }
+          });
+        });
+      });
     </script>
   </body>
 </html>

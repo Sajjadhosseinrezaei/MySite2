@@ -207,8 +207,6 @@ nav a:hover, nav a.active {
 }
 
 
-
-
 /* Projects Styles */
 .projects-container {
   display: grid;
@@ -222,6 +220,8 @@ nav a:hover, nav a.active {
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
@@ -246,9 +246,11 @@ nav a:hover, nav a.active {
   transition: transform 0.3s ease; /* انیمیشن در صورت تغییر اندازه */
 }
 
-
 .project-content {
   padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-content h3 {
@@ -257,8 +259,44 @@ nav a:hover, nav a.active {
   font-size: 1.4rem;
 }
 
-.project-content p {
+/* استایل جدید برای توضیحات پروژه - قابل باز و بسته شدن */
+.project-description {
+  position: relative;
   margin-bottom: 15px;
+  text-align: right;
+  direction: rtl;
+}
+
+.description-text {
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.description-text.collapsed {
+  max-height: 4.5em; /* حدود 3 خط */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: color 0.2s;
+  font-family: 'Vazirmatn', sans-serif;
+}
+
+.read-more-btn:hover {
+  color: var(--dark-color);
+  text-decoration: underline;
 }
 
 .project-tech {
@@ -279,6 +317,7 @@ nav a:hover, nav a.active {
 .project-links {
   display: flex;
   gap: 15px;
+  margin-top: auto; /* فشار به پایین کارت */
 }
 
 .btn {
@@ -375,6 +414,40 @@ footer {
   color: var(--light-color);
   padding: 30px 0;
   text-align: center;
+}
+
+/* استایل صفحه‌بندی */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.step-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-links a {
+  padding: 8px 15px;
+  background-color: var(--light-color);
+  color: var(--primary-color);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.step-links a:hover {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.current {
+  padding: 8px 15px;
+  background-color: rgba(74, 108, 247, 0.1);
+  color: var(--primary-color);
+  border-radius: 5px;
 }
 
 /* Responsive Design */
