@@ -96,6 +96,8 @@ API_SECRET=your-cloudinary-api-secret
 
 ### ۴. اجرای پروژه
 
+
+
 ```bash
 # اجرای مایگریشن‌ها
 python manage.py migrate
