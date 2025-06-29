@@ -175,6 +175,8 @@ DELETE /api/technologies/<id>/: حذف تکنولوژی
 
 ### 📬 تماس با من
 سجادحسین رضایی
+
 📧 sajjadhosseinrezaei@yahoo.com
+
 🌐 sajjadhossin.onrender.com
 
