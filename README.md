@@ -79,3 +79,102 @@ pip install -r requirements.txt
 
 # ساخت فایل .env از نمونه
 cp .env.example .env
+```
+
+### ۳. پیکربندی متفیرهای محیطی
+
+فایل .env را با مقادیر مناسب پر کنید:
+SECRET_KEY=your-secret-key
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/mysite
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=your-gmail-app-password
+CLOUD_NAME=your-cloud-name
+API_KEY=your-cloudinary-api-key
+API_SECRET=your-cloudinary-api-secret
+
+
+
+### ۴. اجرای پروژه
+
+```bash
+# اجرای مایگریشن‌ها
+python manage.py migrate
+
+# ساخت سوپر یوزر
+python manage.py createsuperuser
+
+# اجرای سرور
+python manage.py runserver
+```
+اکنون می‌توانید پروژه را در آدرس http://127.0.0.1:8000 مشاهده کنید.
+
+
+### 🐳 اجرای پروژه با Docker (محیط پروداکشن)
+
+**۱. پیشنیاز
+نصب Docker
+** ۲.اجرا
+```bash
+# ساخت ایمیج
+docker build -t portfolio-app .
+
+# اجرای کانتینر
+docker run --name portfolio-app -p 8000:8000 --env-file .env -d portfolio-app
+```
+### 📄 فایل entrypoint.sh
+یک فایل به نام entrypoint.sh بسازید و کد زیر را در آن قرار دهید:
+```bash
+#!/bin/sh
+echo "Running migrations..."
+python manage.py migrate --noinput
+
+echo "Starting Gunicorn server..."
+gunicorn mysite.wsgi:application --bind 0.0.0.0:8000
+```
+### 📚 مستندات API
+**اهراز هویت
+دریافت توکن JWT 
+POST /api/token/
+درخواست:
+{
+  "username": "your_username",
+  "password": "your_password"
+}
+
+*استفاده از توکن*
+در هدر درخواست ها:
+Authorization: Bearer <access_token>
+
+### Swagger UI
+http://127.0.0.1:8000/api/schema/swagger-ui/
+
+###Endpointهای اصلی
+
+**پروژه ها**
+GET /api/projects/: لیست پروژه‌ها
+
+POST /api/projects/: ساخت پروژه جدید
+
+GET /api/projects/<id>/: دریافت پروژه خاص
+
+PUT /api/projects/<id>/: بروزرسانی پروژه
+
+DELETE /api/projects/<id>/: حذف پروژه
+
+** تکنولوژی ها**
+
+GET /api/technologies/: لیست تکنولوژی‌ها
+
+POST /api/technologies/: افزودن تکنولوژی
+
+GET /api/technologies/<id>/: دریافت تکنولوژی خاص
+
+PUT /api/technologies/<id>/: بروزرسانی تکنولوژی
+
+DELETE /api/technologies/<id>/: حذف تکنولوژی
+
+### 📬 تماس با من
+سجادحسین رضایی
+📧 sajjadhosseinrezaei@yahoo.com
+🌐 sajjadhossin.onrender.com
+
